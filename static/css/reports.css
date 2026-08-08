@@ -1,0 +1,64 @@
+.card{
+
+    transition:0.3s;
+
+}
+
+.card:hover{
+
+    transform:translateY(-5px);
+
+}
+
+.btn-success{
+
+    border-radius:10px;
+
+}
+
+.page-header{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:30px;
+
+}
+
+.page-header h1{
+
+    font-size:52px;
+    font-weight:700;
+    margin-bottom:5px;
+
+}
+
+.page-header p{
+
+    color:#6c757d;
+    font-size:18px;
+
+}
+
+.header-buttons{
+
+    display:flex;
+    gap:12px;
+
+}
+
+.report-template{
+
+    transition:.3s;
+
+    cursor:pointer;
+
+}
+
+.report-template:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:0 15px 35px rgba(0,0,0,.15);
+
+}

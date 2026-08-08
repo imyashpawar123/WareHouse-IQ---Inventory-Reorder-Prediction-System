@@ -1,0 +1,375 @@
+/* ==========================
+   Warehouse IQ Dashboard CSS
+========================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f4f7fc;
+    overflow-x:hidden;
+}
+
+/* ================= Sidebar ================= */
+
+.sidebar{
+    position:fixed;
+    top:0;
+    left:-270px;
+    width:270px;
+    height:100vh;
+    background:#0d6efd;
+    color:#fff;
+    padding:20px;
+    transition:.35s;
+    z-index:1050;
+    overflow-y:auto;
+}
+
+.sidebar.active{
+    left:0;
+}
+
+.logo{
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.logo i{
+    font-size:40px;
+    margin-bottom:10px;
+}
+
+.logo h3{
+    font-size:28px;
+    font-weight:600;
+}
+
+.sidebar ul{
+    list-style:none;
+    padding:0;
+}
+
+.sidebar ul li{
+    margin:12px 0;
+}
+
+.sidebar ul li a{
+    color:#fff;
+    text-decoration:none;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:14px 16px;
+    border-radius:12px;
+    transition:.3s;
+    font-size:17px;
+}
+
+.sidebar ul li a:hover{
+    background:rgba(255,255,255,.18);
+    transform:translateX(5px);
+}
+.sidebar ul li a.active{
+
+    background:white;
+
+    color:#0d49fd;
+
+    font-weight:600;
+
+    box-shadow:0 8px 18px rgba(0,0,0,.15);
+
+}
+/* ================= Overlay ================= */
+
+.overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.45);
+    opacity:0;
+    visibility:hidden;
+    transition:.3s;
+    z-index:1040;
+}
+
+.overlay.active{
+    opacity:1;
+    visibility:visible;
+}
+
+/* ================= Main ================= */
+
+.main-content{
+    width:100%;
+    min-height:100vh;
+    padding:30px;
+}
+
+/* ================= Navbar ================= */
+
+.top-navbar{
+
+    background:#fff;
+    padding:18px 25px;
+    border-radius:18px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    box-shadow:0 8px 18px rgba(0,0,0,.08);
+
+}
+
+.nav-left{
+    display:flex;
+    align-items:center;
+}
+
+.menu-btn{
+
+    background:none;
+    border:none;
+    font-size:28px;
+    color:#0d6efd;
+    cursor:pointer;
+
+}
+
+.profile{
+
+    font-size:20px;
+    font-weight:600;
+
+}
+
+/* ================= Cards ================= */
+
+.dashboard-card{
+
+    border:none;
+    border-radius:18px;
+    box-shadow:0 10px 20px rgba(0,0,0,.08);
+    transition:.3s;
+
+}
+
+.dashboard-card:hover{
+
+    transform:translateY(-8px);
+
+}
+
+/* ================= Charts ================= */
+
+.chart-card{
+
+    background:#fff;
+    border-radius:18px;
+    padding:20px;
+    box-shadow:0 10px 20px rgba(0,0,0,.08);
+    margin-bottom:25px;
+
+}
+
+/* ================= Footer ================= */
+
+.footer{
+
+    margin-top:40px;
+    background:#fff;
+    border-radius:18px;
+    padding:25px;
+    text-align:center;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+}
+
+.footer h5{
+    color:#0d6efd;
+    margin-bottom:10px;
+}
+
+.footer p{
+    margin-bottom:5px;
+}
+
+/* ================= Responsive ================= */
+
+@media(max-width:768px){
+
+.main-content{
+
+    padding:15px;
+
+}
+
+.top-navbar h3{
+
+    font-size:22px;
+
+}
+
+.profile{
+
+    font-size:16px;
+
+}
+
+}
+
+.top-navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:#fff;
+    padding:15px 25px;
+    border-radius:15px;
+    box-shadow:0 8px 18px rgba(0,0,0,.08);
+}
+
+.nav-left,
+.nav-right{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+.nav-center{
+    display:flex;
+    gap:28px;
+}
+
+.nav-center a{
+    text-decoration:none;
+    color:#555;
+    font-weight:500;
+    transition:.3s;
+}
+
+.nav-center a:hover{
+    color:#0d6efd;
+}
+
+.nav-center a.active{
+    color:#0d6efd;
+    font-weight:600;
+    border-bottom:3px solid #0d6efd;
+    padding-bottom:6px;
+}
+
+.logo-text{
+    font-weight:700;
+    color:#0d6efd;
+}
+
+.nav-right i{
+    font-size:20px;
+    cursor:pointer;
+}
+
+/* ===== Dashboard Gradient Cards ===== */
+
+.dashboard-card{
+    border:none;
+    border-radius:20px;
+    color:white;
+    overflow:hidden;
+    transition:0.3s;
+    box-shadow:0 10px 25px rgba(0,0,0,.12);
+}
+
+.dashboard-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 18px 30px rgba(0,0,0,.18);
+}
+
+.dashboard-card .card-body{
+    padding:25px;
+}
+
+.dashboard-card p{
+    color:rgba(255,255,255,.85);
+    margin-bottom:8px;
+    font-size:15px;
+}
+
+.dashboard-card h2{
+    font-weight:700;
+    font-size:32px;
+}
+
+/* Blue */
+
+.card-blue{
+    background:linear-gradient(135deg,#4F8CFF,#0D6EFD);
+}
+
+/* Orange */
+
+.card-orange{
+    background:linear-gradient(135deg,#FFA94D,#FD7E14);
+}
+
+/* Green */
+
+.card-green{
+    background:linear-gradient(135deg,#51CF66,#198754);
+}
+
+/* Purple */
+
+.card-purple{
+    background:linear-gradient(135deg,#9775FA,#6F42C1);
+}
+
+.icon{
+
+    width:65px;
+    height:65px;
+
+    border-radius:50%;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:rgba(255,255,255,.22);
+
+    backdrop-filter:blur(10px);
+
+    color:white;
+
+    font-size:26px;
+
+}
+
+.dashboard-card{
+    transition: all .35s ease;
+    cursor: pointer;
+}
+
+.dashboard-card:hover{
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0,0,0,.18);
+}
+
+.dashboard-card .icon{
+    transition: .35s;
+}
+
+.dashboard-card:hover .icon{
+    transform: rotate(10deg) scale(1.15);
+}
+
+.dashboard-card h2{
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+}

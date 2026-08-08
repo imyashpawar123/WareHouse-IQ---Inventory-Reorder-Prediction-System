@@ -1,0 +1,357 @@
+{% extends "base.html" %}
+
+{% block title %}Analytics{% endblock %}
+
+{% block content %}
+
+<!-- Page Title -->
+<h2 class="fw-bold mb-4">Analytics Dashboard</h2>
+
+
+<!-- ========================= -->
+<!-- KPI Cards -->
+<!-- ========================= -->
+
+<div class="row g-4">
+
+    <!-- Total Sales -->
+    <div class="col-lg-3 col-md-6">
+
+        <div class="card dashboard-card card-blue">
+
+            <div class="card-body">
+
+                <div class="d-flex justify-content-between align-items-center">
+
+                    <div>
+
+                        <p>Total Sales</p>
+
+                        <h2 class="counter"
+                            data-target="{{ total_sales }}">
+                            0
+                        </h2>
+
+                    </div>
+
+                    <div class="icon">
+                        <i class="fa-solid fa-chart-line"></i>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Total Revenue -->
+    <div class="col-lg-3 col-md-6">
+
+        <div class="card dashboard-card card-green">
+
+            <div class="card-body">
+
+                <div class="d-flex justify-content-between align-items-center">
+
+                    <div>
+
+                        <p>Total Revenue</p>
+
+                        <h2 class="counter"
+                            data-target="{{ total_revenue }}">
+                            0
+                        </h2>
+
+                    </div>
+
+                    <div class="icon">
+                        <i class="fa-solid fa-indian-rupee-sign"></i>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Average Inventory -->
+    <div class="col-lg-3 col-md-6">
+
+        <div class="card dashboard-card card-orange">
+
+            <div class="card-body">
+
+                <div class="d-flex justify-content-between align-items-center">
+
+                    <div>
+
+                        <p>Average Inventory</p>
+
+                        <h2 class="counter"
+                            data-target="{{ avg_inventory }}">
+                            0
+                        </h2>
+
+                    </div>
+
+                    <div class="icon">
+                        <i class="fa-solid fa-boxes-stacked"></i>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Reorder Items -->
+    <div class="col-lg-3 col-md-6">
+
+        <div class="card dashboard-card card-purple">
+
+            <div class="card-body">
+
+                <div class="d-flex justify-content-between align-items-center">
+
+                    <div>
+
+                        <p>Reorder Items</p>
+
+                        <h2 class="counter"
+                            data-target="{{ reorder_items }}">
+                            0
+                        </h2>
+
+                    </div>
+
+                    <div class="icon">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ========================= -->
+<!-- CHARTS ROW 1 -->
+<!-- ========================= -->
+
+<div class="row g-4 mt-2">
+
+
+    <!-- 1. Category Bar Chart -->
+
+    <div class="col-lg-6">
+
+        <div class="card shadow border-0 rounded-4 p-3 chart-card">
+
+            <h5 class="fw-bold mb-3">
+                Inventory by Category
+            </h5>
+
+            <div class="text-center">
+
+                <img
+                    src="{{ url_for('static', filename='images/category_inventory.png') }}"
+                    class="img-fluid rounded-3 analytics-chart"
+                    alt="Inventory by Category Chart">
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- 2. Region Pie Chart -->
+
+    <div class="col-lg-6">
+
+        <div class="card shadow border-0 rounded-4 p-3 chart-card">
+
+            <h5 class="fw-bold mb-3">
+                Inventory Distribution by Region
+            </h5>
+
+            <div class="text-center">
+
+                <img
+                    src="{{ url_for('static', filename='images/region_inventory_pie.png') }}"
+                    class="img-fluid rounded-3 analytics-chart"
+                    alt="Inventory Distribution by Region">
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ========================= -->
+<!-- CHARTS ROW 2 -->
+<!-- ========================= -->
+
+<div class="row g-4 mt-2">
+
+
+    <!-- 3. Monthly Sales Line Chart -->
+
+    <div class="col-lg-6">
+
+        <div class="card shadow border-0 rounded-4 p-3 chart-card">
+
+            <h5 class="fw-bold mb-3">
+                Monthly Sales Trend
+            </h5>
+
+            <div class="text-center">
+
+                <img
+                    src="{{ url_for('static', filename='images/monthly_sales.png') }}"
+                    class="img-fluid rounded-3 analytics-chart"
+                    alt="Monthly Sales Trend">
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- 4. Sales + Revenue Combined Chart -->
+
+    <div class="col-lg-6">
+
+        <div class="card shadow border-0 rounded-4 p-3 chart-card">
+
+            <h5 class="fw-bold mb-3">
+                Sales vs Revenue
+            </h5>
+
+            <div class="text-center">
+
+                <img
+                    src="{{ url_for('static', filename='images/sales_revenue_combined.png') }}"
+                    class="img-fluid rounded-3 analytics-chart"
+                    alt="Sales vs Revenue">
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ========================= -->
+<!-- CHARTS ROW 3 -->
+<!-- ========================= -->
+
+<div class="row g-4 mt-2">
+
+
+    <!-- 5. Correlation Heatmap -->
+
+    <div class="col-lg-6">
+
+        <div class="card shadow border-0 rounded-4 p-3 chart-card">
+
+            <h5 class="fw-bold mb-3">
+                Feature Correlation Heatmap
+            </h5>
+
+            <div class="text-center">
+
+                <img
+                    src="{{ url_for('static', filename='images/correlation_heatmap.png') }}"
+                    class="img-fluid rounded-3 analytics-chart"
+                    alt="Feature Correlation Heatmap">
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- 6. Discount vs Units Sold -->
+
+    <div class="col-lg-6">
+
+        <div class="card shadow border-0 rounded-4 p-3 chart-card">
+
+            <h5 class="fw-bold mb-3">
+                Discount vs Units Sold
+            </h5>
+
+            <div class="text-center">
+
+                <img
+                    src="{{ url_for('static', filename='images/discount_sales.png') }}"
+                    class="img-fluid rounded-3 analytics-chart"
+                    alt="Discount vs Units Sold">
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ========================= -->
+<!-- Analytics Summary -->
+<!-- ========================= -->
+
+<div class="row mt-4">
+
+    <div class="col-12">
+
+        <div class="card shadow border-0 rounded-4 p-4">
+
+            <h5 class="fw-bold mb-3">
+                Analytics Overview
+            </h5>
+
+            <p class="text-muted mb-0">
+
+                The analytics dashboard provides a visual overview
+                of warehouse inventory, sales performance, regional
+                distribution, product relationships and discount
+                impact.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+{% endblock %}
+
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/analytics.js') }}"></script>
+{% endblock %}

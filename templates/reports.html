@@ -1,0 +1,360 @@
+{% extends "base.html" %}
+{% block title %}Reports{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+   <div class="page-header">
+
+    <div>
+
+        <h1>Reports</h1>
+
+        <p>Generate and export inventory reports.</p>
+
+    </div>
+
+</div>
+
+    <!-- KPI Cards -->
+
+    <div class="row g-4 mb-4">
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="card dashboard-card card-blue">
+
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between">
+
+                        <div>
+
+                            <p>Total Records</p>
+
+                            <h2 class="counter"
+                                data-target="{{ total_reports }}">
+                                0
+                            </h2>
+
+                        </div>
+
+                        <div class="icon">
+                            <i class="fa-solid fa-table"></i>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="card dashboard-card card-orange">
+
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between">
+
+                        <div>
+
+                            <p>Low Stock</p>
+
+                            <h2 class="counter"
+                                data-target="{{ low_stock }}">
+                                0
+                            </h2>
+
+                        </div>
+
+                        <div class="icon">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="card dashboard-card card-green">
+
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between">
+
+                        <div>
+
+                            <p>Average Inventory</p>
+
+                            <h2 class="counter"
+                                data-target="{{ avg_inventory }}">
+                                0
+                            </h2>
+
+                        </div>
+
+                        <div class="icon">
+                            <i class="fa-solid fa-boxes-stacked"></i>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="card dashboard-card card-purple">
+
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between">
+
+                        <div>
+
+                            <p>Revenue</p>
+
+                            <h2>
+                                ₹
+                                <span class="counter"
+                                      data-target="{{ revenue }}"
+                                      data-format="currency">
+                                      0
+                                </span>
+                            </h2>
+
+                        </div>
+
+                        <div class="icon">
+                            <i class="fa-solid fa-indian-rupee-sign"></i>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+   
+
+<div class="row g-4 mt-4">
+
+    <div class="col-lg-3 col-md-6">
+
+        <div class="card shadow-sm border-0 rounded-4 h-100 report-template">
+
+            <div class="card-body text-center">
+
+                <i class="fa-solid fa-boxes-stacked fa-3x text-primary mb-3"></i>
+
+                <h5>Inventory Summary</h5>
+
+                <p class="text-muted">
+                    Complete inventory stock report.
+                </p>
+
+                <a href="{{ url_for('inventory_summary_report') }}"
+   class="btn btn-outline-primary">
+
+    Generate
+
+</a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+
+        <div class="card shadow-sm border-0 rounded-4 h-100 report-template">
+
+            <div class="card-body text-center">
+
+                <i class="fa-solid fa-chart-line fa-3x text-success mb-3"></i>
+
+                <h5>Sales Report</h5>
+
+                <p class="text-muted">
+                    View monthly sales performance.
+                </p>
+
+                <a href="{{ url_for('sales_report') }}"
+   class="btn btn-outline-success">
+    Generate
+</a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+
+        <div class="card shadow-sm border-0 rounded-4 h-100 report-template">
+
+            <div class="card-body text-center">
+
+                <i class="fa-solid fa-triangle-exclamation fa-3x text-danger mb-3"></i>
+
+                <h5>Low Stock Report</h5>
+
+                <p class="text-muted">
+                    Products requiring immediate reorder.
+                </p>
+
+                <a href="{{ url_for('low_stock_report') }}"
+   class="btn btn-outline-danger">
+    Generate
+</a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+<div class="col-lg-3 col-md-6">
+
+    <div class="card shadow-sm border-0 rounded-4 h-100 report-template">
+
+        <div class="card-body text-center">
+
+            <i class="fa-solid fa-indian-rupee-sign fa-3x text-warning mb-3"></i>
+
+            <h5>Revenue Report</h5>
+
+            <p class="text-muted">
+                Analyze total revenue and earnings.
+            </p>
+
+            <a href="{{ url_for('revenue_report') }}"
+   class="btn btn-outline-warning">
+    Generate
+</a>
+        </div>
+
+    </div>
+</div>
+
+</div>
+
+<!-- Recent Reports -->
+
+<div class="card shadow-sm border-0 rounded-4 mt-4">
+
+    <div class="card-body">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+
+            <h4 class="fw-bold mb-0">
+                <i class="fa-solid fa-clock-rotate-left text-primary"></i>
+                Recent Reports
+            </h4>
+
+            <button class="btn btn-outline-primary btn-sm">
+                View All
+            </button>
+
+        </div>
+
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle">
+
+                <thead class="table-light">
+
+                    <tr>
+
+                        <th>Report Name</th>
+                        <th>Date</th>
+                        <th>Format</th>
+                        <th>Status</th>
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+               <tbody>
+
+{% for report in recent_reports %}
+
+<tr>
+
+    <td>{{ report.name }}</td>
+
+    <td>{{ report.date }}</td>
+
+    <td>
+
+        <span class="badge bg-primary">
+
+            {{ report.format }}
+
+        </span>
+
+    </td>
+
+    <td>
+
+        <span class="badge bg-success">
+
+            {{ report.status }}
+
+        </span>
+
+    </td>
+
+    <td>
+
+        <a href="{{ url_for(report.route) }}"
+           class="btn btn-sm btn-primary">
+
+            <i class="fa-solid fa-download"></i>
+
+            Download
+
+        </a>
+
+    </td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+{% block scripts %}
+
+<script src="{{ url_for('static', filename='js/counter.js') }}"></script>
+
+{% endblock %}

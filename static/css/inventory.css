@@ -1,0 +1,120 @@
+.inventory-header{
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    color:#fff;
+}
+
+.inventory-header th{
+    background:transparent !important;
+    color:white;
+    font-weight:600;
+    border:none;
+    padding:16px;
+}
+
+.table tbody tr:nth-child(even){
+    background:#f8fbff;
+}
+
+.table tbody tr:hover{
+    background:#edf4ff;
+    transition:.25s;
+}
+
+.badge{
+    border-radius:30px;
+    padding:8px 14px;
+    font-size:13px;
+    font-weight:600;
+}
+
+.bg-success{
+    background:#16a34a !important;
+}
+
+.bg-warning{
+    background:#facc15 !important;
+    color:#000 !important;
+}
+
+.bg-danger{
+    background:#ef4444 !important;
+}
+
+.bg-orange{
+    background:#fb923c;
+    color:white;
+}
+
+.view-btn{
+    width:40px;
+    height:40px;
+    border-radius:12px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin:auto;
+    transition:.3s;
+}
+
+.view-btn:hover{
+    transform:scale(1.08);
+}
+
+.card{
+    border-radius:20px;
+}
+.view-btn{
+    width:40px;
+    height:40px;
+    border-radius:12px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin:auto;
+    transition:0.3s;
+}
+
+.view-btn:hover{
+    transform:scale(1.08);
+    box-shadow:0 5px 12px rgba(13,110,253,.35);
+}
+
+.modal-content{
+
+    border:none;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+}
+
+.modal-header{
+
+    padding:18px 25px;
+
+}
+
+.modal-body{
+
+    padding:25px;
+
+}
+
+.modal-body label{
+
+    margin-bottom:6px;
+
+    color:#444;
+
+}
+
+.modal-body .form-control{
+
+    background:#f8f9fa;
+
+    border:none;
+
+    font-weight:600;
+
+}

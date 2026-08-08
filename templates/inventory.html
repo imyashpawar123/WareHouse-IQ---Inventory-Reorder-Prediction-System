@@ -1,0 +1,535 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container-fluid mt-4">
+
+    <!-- Page Heading -->
+
+    <div class="mb-4">
+
+        <h2 class="fw-bold">Inventory Management</h2>
+
+        <p class="text-muted mb-0">
+            Manage and Monitor Warehouse Inventory
+        </p>
+
+    </div>
+
+    <!-- Dashboard Cards -->
+
+    <div class="row g-4 mb-4">
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="card dashboard-card card-blue">
+
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <div>
+
+                            <p>Total Products</p>
+
+                            <h2 class="counter" data-target="{{ total_products }}">0</h2>
+
+                        </div>
+
+                        <div class="icon">
+                            <i class="fa-solid fa-boxes-stacked"></i>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="card dashboard-card card-green">
+
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <div>
+
+                            <p>Total Stores</p>
+
+                           <h2 class="counter" data-target="{{ total_stores }}">0</h2>
+
+                        </div>
+
+                        <div class="icon">
+                            <i class="fa-solid fa-warehouse"></i>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="card dashboard-card card-orange">
+
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <div>
+
+                            <p>Low Stock</p>
+
+                            <h2 class="counter" data-target="{{ low_stock }}">0</h2>
+
+                        </div>
+
+                        <div class="icon">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="card dashboard-card card-purple">
+
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <div>
+
+                            <p>Categories</p>
+
+                            <h2 class="counter" data-target="{{ total_categories }}">0</h2>
+
+                        </div>
+
+                        <div class="icon">
+                            <i class="fa-solid fa-layer-group"></i>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Search Card -->
+
+    <div class="card shadow border-0 rounded-4 mb-4">
+
+        <div class="card-body">
+
+            <form method="GET" action="{{ url_for('inventory') }}">
+
+                <div class="row g-3 align-items-end">
+
+                    <div class="col-lg-5">
+
+                        <label class="form-label">
+                            Search Product
+                        </label>
+
+                        <input
+                            type="text"
+                            class="form-control"
+                            name="search"
+                            value="{{ search }}"
+                            placeholder="Search Product ID...">
+
+                    </div>
+
+                    <div class="col-lg-2">
+
+                        <label class="form-label">
+                            Category
+                        </label>
+
+                        <select class="form-select" name="category">
+
+                            <option value="">All</option>
+
+                            {% for cat in categories %}
+                            <option value="{{ cat }}" {% if cat==category %}selected{% endif %}>
+                                {{ cat }}
+                            </option>
+                            {% endfor %}
+
+                        </select>
+
+                    </div>
+
+                    <div class="col-lg-2">
+
+                        <label class="form-label">
+                            Region
+                        </label>
+
+                        <select class="form-select" name="region">
+
+                            <option value="">All</option>
+
+                            {% for reg in regions %}
+                            <option value="{{ reg }}" {% if reg==region %}selected{% endif %}>
+                                {{ reg }}
+                            </option>
+                            {% endfor %}
+
+                        </select>
+
+                    </div>
+
+                    <div class="col-lg-3">
+
+                        <button class="btn btn-primary w-100">
+
+                            <i class="fa-solid fa-magnifying-glass me-2"></i>
+
+                            Search
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- Inventory Table -->
+
+    <div class="card border-0 shadow-lg rounded-4">
+        <div class="card-body">
+
+            <div class="table-responsive">
+
+                <table
+                    class="table table-hover"
+                    id="inventoryTable">
+
+                    <thead class="inventory-header">
+
+                        <tr>
+
+                            <th>Product</th>
+                            <th>Store</th>
+                            <th>Category</th>
+                            <th>Region</th>
+                            <th>Stock</th>
+                            <th>Sold</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {% for item in inventory %}
+
+                        <tr>
+
+                            <td>{{ item["Product ID"] }}</td>
+
+                            <td>{{ item["Store ID"] }}</td>
+
+                            <td>{{ item["Category"] }}</td>
+
+                            <td>{{ item["Region"] }}</td>
+
+                            <td>{{ item["Inventory Level"] }}</td>
+
+                            <td>{{ item["Units Sold"] }}</td>
+
+                            <td>
+
+                                {% if item["Status"]=="Normal" %}
+
+                                <span class="badge bg-success">
+
+                                    Normal
+
+                                </span>
+
+                                {% elif item["Status"]=="Medium" %}
+
+                                <span class="badge bg-warning text-dark">
+
+                                    Medium
+
+                                </span>
+
+                                {% elif item["Status"]=="Low" %}
+
+                                <span class="badge bg-orange">
+
+                                    Low
+
+                                </span>
+
+                                {% else %}
+
+                                <span class="badge bg-danger">
+
+                                    Critical
+
+                                </span>
+
+                                {% endif %}
+
+                            </td>
+<td>
+
+    <button
+   class="btn btn-sm btn-primary view-btn"
+    data-bs-toggle="modal"
+    data-bs-target="#viewModal"
+    data-product="{{ item['Product ID'] }}"
+    data-store="{{ item['Store ID'] }}"
+    data-category="{{ item['Category'] }}"
+    data-region="{{ item['Region'] }}"
+    data-stock="{{ item['Inventory Level'] }}"
+    data-sold="{{ item['Units Sold'] }}"
+    data-demand="{{ item['Demand Forecast'] }}"
+    data-price="{{ item['Price'] }}"
+    data-status="{{ item['Status'] }}">
+    <i class="fa-solid fa-eye"></i>
+</button>
+
+</td>
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+<nav class="mt-4">
+
+    <ul class="pagination justify-content-center">
+{% if start_page > 1 %}
+<li class="page-item">
+    <a class="page-link"
+       href="{{ url_for('inventory', page=1) }}">
+        1
+    </a>
+</li>
+
+<li class="page-item disabled">
+    <span class="page-link">...</span>
+</li>
+{% endif %}
+
+        {% if page > 1 %}
+        <li class="page-item">
+            <a class="page-link"
+               href="{{ url_for('inventory', page=page-1) }}">
+                Previous
+            </a>
+        </li>
+        {% endif %}
+
+       {% for p in range(start_page, end_page + 1) %}
+
+            {% if p == page %}
+
+            <li class="page-item active">
+
+                <span class="page-link">
+                    {{ p }}
+                </span>
+
+            </li>
+
+            {% else %}
+
+            <li class="page-item">
+
+                <a class="page-link"
+                   href="{{ url_for('inventory', page=p) }}">
+                    {{ p }}
+                </a>
+
+            </li>
+
+            {% endif %}
+
+        {% endfor %}
+{% if end_page < total_pages %}
+<li class="page-item disabled">
+    <span class="page-link">...</span>
+</li>
+
+<li class="page-item">
+    <a class="page-link"
+       href="{{ url_for('inventory', page=total_pages) }}">
+        {{ total_pages }}
+    </a>
+</li>
+{% endif %}
+        {% if page < total_pages %}
+        <li class="page-item">
+
+            <a class="page-link"
+               href="{{ url_for('inventory', page=page+1) }}">
+                Next
+            </a>
+
+        </li>
+        {% endif %}
+
+    </ul>
+
+</nav>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<div class="modal fade" id="viewModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header bg-primary text-white">
+
+    <h5 class="modal-title">
+        <i class="fa-solid fa-box me-2"></i>
+        Product Details
+    </h5>
+
+    <button type="button"
+            class="btn-close btn-close-white"
+            data-bs-dismiss="modal"></button>
+
+</div>
+
+            <div class="modal-body">
+
+<div class="row">
+
+<div class="col-md-6 mb-3">
+
+<label class="fw-bold">
+Product ID
+</label>
+
+<div class="form-control" id="mProduct"></div>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="fw-bold">
+Store ID
+</label>
+
+<div class="form-control" id="mStore"></div>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="fw-bold">
+Category
+</label>
+
+<div class="form-control" id="mCategory"></div>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="fw-bold">
+Region
+</label>
+
+<div class="form-control" id="mRegion"></div>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="fw-bold">
+Inventory
+</label>
+
+<div class="form-control" id="mStock"></div>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="fw-bold">
+Units Sold
+</label>
+
+<div class="form-control" id="mSold"></div>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="fw-bold">
+Demand Forecast
+</label>
+
+<div class="form-control" id="mDemand"></div>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="fw-bold">
+Price
+</label>
+
+<div class="form-control" id="mPrice"></div>
+
+</div>
+
+<div class="col-12">
+
+<label class="fw-bold">
+Status
+</label>
+
+<div class="form-control" id="mStatus"></div>
+
+</div>
+
+</div>
+
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script src="{{ url_for('static', filename='js/inventory.js') }}"></script>
+<script src="{{ url_for('static', filename='js/counter.js') }}"></script>
+{% endblock %}
