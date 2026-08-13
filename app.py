@@ -131,84 +131,155 @@ def inventory():
 
     df = pd.read_csv("dataset/inventory.csv")
 
+    # ==========================
+    # Dropdown Filter Options
+    # ==========================
+
+    categories = sorted(
+        df["Category"].dropna().unique().tolist()
+    )
+
+    regions = sorted(
+        df["Region"].dropna().unique().tolist()
+    )
+
+    # ==========================
     # Search and Filters
+    # ==========================
+
     search = request.args.get("search", "").strip()
     category = request.args.get("category", "")
     region = request.args.get("region", "")
 
+    # Search
     if search:
         df = df[
             df.astype(str)
-            .apply(lambda x: x.str.contains(search, case=False, na=False))
+            .apply(
+                lambda x: x.str.contains(
+                    search,
+                    case=False,
+                    na=False
+                )
+            )
             .any(axis=1)
         ]
 
+    # Category Filter
     if category:
         df = df[df["Category"] == category]
 
+    # Region Filter
     if region:
         df = df[df["Region"] == region]
 
+    # ==========================
+    # Stock Status
+    # ==========================
 
     def get_status(stock):
+
         if stock >= 100:
             return "Normal"
+
         elif stock >= 50:
             return "Medium"
+
         elif stock >= 20:
             return "Low"
+
         else:
             return "Critical"
 
-
     df["Status"] = df["Inventory Level"].apply(get_status)
 
+    # ==========================
+    # KPI Cards
+    # ==========================
 
     total_products = df["Product ID"].nunique()
+
     total_stores = df["Store ID"].nunique()
-    low_stock = len(df[df["Inventory Level"] < 50])
-    critical_stock = len(df[df["Inventory Level"] < 20])
+
+    low_stock = len(
+        df[df["Inventory Level"] < 50]
+    )
+
+    critical_stock = len(
+        df[df["Inventory Level"] < 20]
+    )
+
     total_categories = df["Category"].nunique()
 
+    # ==========================
     # Pagination
-    page = request.args.get("page", 1, type=int)
+    # ==========================
+
+    page = request.args.get(
+        "page",
+        1,
+        type=int
+    )
+
     per_page = 20
 
     total_records = len(df)
-    total_pages = ceil(total_records / per_page)
+
+    total_pages = ceil(
+        total_records / per_page
+    )
 
     start = (page - 1) * per_page
+
     end = start + per_page
 
     inventory_data = df.iloc[start:end]
-    # Pagination window
-    start_page = max(1, page - 2)
-    end_page = min(total_pages, page + 2)
 
-    categories = sorted(df["Category"].unique().tolist())
-    regions = sorted(df["Region"].unique().tolist())
+    # Pagination window
+    start_page = max(
+        1,
+        page - 2
+    )
+
+    end_page = min(
+        total_pages,
+        page + 2
+    )
+
+    # ==========================
+    # Render Inventory Page
+    # ==========================
 
     return render_template(
-    "inventory.html",
-    inventory=inventory_data.to_dict(orient="records"),
 
-    total_products=total_products,
-    total_stores=total_stores,
-    low_stock=low_stock,
-    critical_stock=critical_stock,
-    total_categories=total_categories,
-    page=page,
-    total_pages=total_pages,
+        "inventory.html",
 
-    # Pagination
-    start_page=start_page,
-    end_page=end_page,
+        inventory=inventory_data.to_dict(
+            orient="records"
+        ),
 
-    # Filters
-    search=search,
-    category=category,
-    region=region,
-)
+        # KPI
+        total_products=total_products,
+        total_stores=total_stores,
+        low_stock=low_stock,
+        critical_stock=critical_stock,
+        total_categories=total_categories,
+
+        # Pagination
+        page=page,
+        total_pages=total_pages,
+        start_page=start_page,
+        end_page=end_page,
+
+        # Filters
+        search=search,
+        category=category,
+        region=region,
+
+        # Dropdown Options
+        categories=categories,
+        regions=regions
+    )
 
 @app.route("/analytics")
 def analytics():
