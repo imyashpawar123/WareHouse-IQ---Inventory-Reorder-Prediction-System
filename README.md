@@ -526,7 +526,43 @@ Bootstrap is used to help maintain responsive layouts across different
 screen sizes.
 
 ------------------------------------------------------------------------
+## 📸 Project Screenshots
 
+### 🏠 Dashboard
+
+![Warehouse IQ Dashboard](./screenshot/dashboard.png)
+
+---
+
+### 📦 Inventory Management
+
+![Inventory Management](./screenshot/Inventory.png)
+
+---
+
+### 📊 Analytics Dashboard
+
+![Analytics Dashboard](./screenshot/analytics.png)
+
+---
+
+### 🤖 AI Reorder Prediction
+
+#### Prediction Result 1
+
+![Prediction Result 1](./screenshot/prediction1.png)
+
+#### Prediction Result 2
+
+![Prediction Result 2](./screenshot/prediction2.png)
+
+---
+
+### 📄 Reports
+
+![Reports Dashboard](./screenshot/reports.png)
+
+-----------------------------------------------------------------------
 ## 🔔 User Feedback
 
 The application provides visual feedback for important actions.
